@@ -14,18 +14,24 @@ public class Player_movement : MonoBehaviour
     public Rigidbody2D body;
 
     public bool grounded;
+    public bool touchingWall;
 
     public Animator animator;
 
     public BoxCollider2D groundCheck;
+    public BoxCollider2D wallCheck;
 
     public LayerMask groundMask;
+    public LayerMask wallMask;
 
     private float xInput;
     private float yInput;
 
     private bool canDash = true;
     private bool isDashing;
+    private bool isWallJumping;
+    private float wallJumpingDuration = 0.4f;
+    private float wallJumpingCounter;
     private float dashPower = 5f;
     private float dashTime = 0.2f;
     private float dashCooldown = 0.35f;
@@ -44,11 +50,15 @@ public class Player_movement : MonoBehaviour
             return;
         }
 
-        getInput();
+        HandleWallJump();
 
+        if (!isWallJumping)
+        {
+            getInput();
+            handleDash();
+        }
+        
         handleJump();
-
-        handleDash();
 
         checkForAnimations();
 
@@ -72,7 +82,13 @@ public class Player_movement : MonoBehaviour
         }
 
         checkGround();
-        moveWithInput();
+        checkWall();
+
+        if (!isWallJumping)
+        {
+            moveWithInput();
+        }
+
         applyFriction();
 
     }
@@ -117,7 +133,29 @@ public class Player_movement : MonoBehaviour
         }
     }
 
-    void handleDash()
+    void HandleWallJump()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && !grounded && touchingWall)
+        {
+            float wallJumpingDirection = -transform.localScale.x;
+            body.linearVelocity = new Vector2(wallJumpingDirection * groundSpeed, jumpSpeed);
+            transform.localScale = new Vector3(wallJumpingDirection, 1, 1);
+            isWallJumping = true;
+            wallJumpingCounter = wallJumpingDuration;
+            animator.SetBool("isJumping", true);
+        }
+
+        if (isWallJumping && wallJumpingCounter > 0f)
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+        else if(isWallJumping)
+        {
+            isWallJumping = false;
+        }
+    }
+
+        void handleDash()
     {
         if (canDash)
         {
@@ -143,6 +181,12 @@ public class Player_movement : MonoBehaviour
         {
             animator.SetBool("isJumping", false);
         }
+    }
+
+    void checkWall()
+    {
+        touchingWall = Physics2D.OverlapAreaAll(wallCheck.bounds.min, wallCheck.bounds.max, wallMask).Length > 0;
+        
     }
 
     private IEnumerator Dash(bool backwards = false)
