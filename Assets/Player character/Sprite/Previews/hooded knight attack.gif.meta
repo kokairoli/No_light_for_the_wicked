@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      hooded knight attack_0: -7101464911518183962
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
