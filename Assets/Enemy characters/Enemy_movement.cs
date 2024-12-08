@@ -61,6 +61,9 @@ public class Enemy_movement : MonoBehaviour
     {
         float directionX = playerBody.position.x - body.position.x;
         body.linearVelocity = new Vector2(directionX, 0).normalized * speed;
+
+        float direction = Mathf.Sign(directionX);
+        transform.localScale = new Vector3(direction, 1, 1);
     }
 
     private void checkForAnimations()
