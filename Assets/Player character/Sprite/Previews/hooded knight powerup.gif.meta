@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      hooded knight powerup_0: -2482141171565380305
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

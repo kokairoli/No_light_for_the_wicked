@@ -27,6 +27,9 @@ namespace Inventory.UI
 
         private int currentlyDraggedItemIndex = -1;
 
+        [SerializeField]
+        private ItemActionPanel actionPanel;
+
         public void InitializeInventoryUI(int inventorySize)
         {
             for (int i = 0; i < inventorySize; i++)
@@ -52,7 +55,12 @@ namespace Inventory.UI
 
         private void HandleShowItemActions(UIInventoryItem item)
         {
-
+            int index = listOfUIItems.IndexOf(item);
+            if (index == -1)
+            {
+                return;
+            }
+            OnItemActionRequested?.Invoke(index);
         }
 
         private void HandleEndDrag(UIInventoryItem item)
@@ -65,10 +73,10 @@ namespace Inventory.UI
             int index = listOfUIItems.IndexOf(item);
             if (index == -1)
             {
-
                 return;
             }
             OnSwapItems?.Invoke(currentlyDraggedItemIndex, index);
+            HandleItemSelction(item);
 
         }
 
@@ -122,16 +130,29 @@ namespace Inventory.UI
             DeselectAllItems();
         }
 
+        public void AddAction(string actionName, Action action)
+        {
+            actionPanel.AddButton(actionName, action);
+        }
+
+        public void ShowItemActions(int itemIndex)
+        {
+            actionPanel.Toggle(true);
+            actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
+        }
+
         private void DeselectAllItems()
         {
             foreach (UIInventoryItem item in listOfUIItems)
             {
                 item.Deselect();
             }
+            actionPanel.Toggle(false);
         }
 
         public void Hide()
         {
+            actionPanel.Toggle(false);
             gameObject.SetActive(false);
             ResetDraggedItem();
         }
@@ -141,6 +162,15 @@ namespace Inventory.UI
             itemDescription.SetDescription(itemImage, name, description);
             DeselectAllItems();
             listOfUIItems[itemIndex].Select();
+        }
+
+        internal void ResetAllItems()
+        {
+            foreach (var item in listOfUIItems)
+            {
+                item.ResetData();
+                item.Deselect();
+            }
         }
     }
 }
