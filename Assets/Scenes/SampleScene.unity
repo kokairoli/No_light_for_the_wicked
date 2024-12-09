@@ -2565,15 +2565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 6197914458835127840}
   inventoryData: {fileID: 11400000, guid: 454edc636af3a3446b5230e96a17a4b9, type: 2}
-  initialItems:
-  - quantity: 5
-    item: {fileID: 11400000, guid: 90d7fa0a9f8437a40839830099bf294b, type: 2}
-  - quantity: 0
-    item: {fileID: 0}
-  - quantity: 1
-    item: {fileID: 11400000, guid: 4f69a8b663a96db4c95c31dbc61b792e, type: 2}
-  - quantity: 2
-    item: {fileID: 11400000, guid: 90d7fa0a9f8437a40839830099bf294b, type: 2}
+  initialItems: []
 --- !u!114 &1670196776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2586,7 +2578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f062d231542a344abea4fb8e3714c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
+  currentHealth: 100
   maxHealth: 100
   healthbar: {fileID: 1236843892}
 --- !u!1 &1700463158
@@ -3715,6 +3707,10 @@ PrefabInstance:
     - target: {fileID: 4549932303605533751, guid: e9fd497e1f8c430479ccd4f17eac2eb1, type: 3}
       propertyPath: m_Name
       value: Pickup item
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549932303605533751, guid: e9fd497e1f8c430479ccd4f17eac2eb1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5395894247370430900, guid: e9fd497e1f8c430479ccd4f17eac2eb1, type: 3}
       propertyPath: <quantity>k__BackingField

@@ -22,16 +22,16 @@ public class Player_status : MonoBehaviour
         }
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         healthbar.SetHealth(currentHealth);
     }
 
-    void Heal(int amount)
+    public void Heal(int amount)
     {
         int newHealth = currentHealth + amount;
         currentHealth = newHealth > maxHealth ? maxHealth : newHealth;
-
+        healthbar.SetHealth(currentHealth);
     }
 }

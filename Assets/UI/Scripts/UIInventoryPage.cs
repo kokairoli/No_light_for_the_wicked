@@ -52,7 +52,12 @@ namespace Inventory.UI
 
         private void HandleShowItemActions(UIInventoryItem item)
         {
-
+            int index = listOfUIItems.IndexOf(item);
+            if (index == -1)
+            {
+                return;
+            }
+            OnItemActionRequested?.Invoke(index);
         }
 
         private void HandleEndDrag(UIInventoryItem item)
