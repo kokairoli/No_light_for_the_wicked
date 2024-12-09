@@ -16,7 +16,7 @@ namespace Inventory.UI
             button.GetComponentInChildren<TMPro.TMP_Text>().text = name;
         }
 
-        public void Toggle(bool value)
+        public   void Toggle(bool value)
         {
             if (value)
             {
