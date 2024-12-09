@@ -15,9 +15,10 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <MaxStackSize>k__BackingField: 99
   <Name>k__BackingField: Potion
-  <Description>k__BackingField: Restore health
+  <Description>k__BackingField: Restores health
   <ItemImage>k__BackingField: {fileID: 3970162634283026489, guid: 6ff03b18089f48541a8e68504fbc71b4, type: 3}
   <DefaultParameterList>k__BackingField: []
   modifiersData:
   - statModifier: {fileID: 11400000, guid: 58679d0a473532d44879d0c72ef81c6d, type: 2}
     value: 40
+  <audioClip>k__BackingField: {fileID: 0}
