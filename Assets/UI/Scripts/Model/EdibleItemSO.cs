@@ -12,6 +12,7 @@ namespace Inventory.Model
 
         public string ActionName => "Consume";
 
+        [field: SerializeField]
         public AudioClip audioClip { get; private set; }
 
         public bool PerformAction(GameObject character, List<ItemParameter> itemState = null)
