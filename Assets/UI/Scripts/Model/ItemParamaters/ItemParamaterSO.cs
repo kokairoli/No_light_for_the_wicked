@@ -2,18 +2,12 @@ using UnityEngine;
 
 namespace Inventory.Model
 {
+    [CreateAssetMenu]
     public class ItemParamaterSO : ScriptableObject
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        [field: SerializeField]
+        public string paramaterName { get; private set; }
+        
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }

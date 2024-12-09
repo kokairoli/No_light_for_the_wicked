@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using Inventory.UI;
 using Inventory.Model;
+using System.Text;
 
 namespace Inventory
 {
@@ -57,18 +58,19 @@ namespace Inventory
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
-            IItemAction itemAction = inventoryItem.item as IItemAction;
-
-            if (itemAction != null)
-            {
-                itemAction.PerformAction(gameObject);
-            }
-
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
             if (destroyableItem != null)
             {
-                inventoryData.RemoveItem(itemIndex,1);
+                inventoryData.RemoveItem(itemIndex, 1);
             }
+
+            IItemAction itemAction = inventoryItem.item as IItemAction;
+            if (itemAction != null)
+            {
+                itemAction.PerformAction(gameObject, inventoryItem.itemState);
+            }
+
+            
         }
 
         private void HandleDragging(int itemIndex)
@@ -94,7 +96,20 @@ namespace Inventory
                 return;
             }
             ItemSO item = inventoryItem.item;
-            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.name, item.Description);
+            string description = PrepareDescription(inventoryItem);
+            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.name, description);
+        }
+
+        private string PrepareDescription(InventoryItem inventoryItem)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(inventoryItem.item.Description);
+            sb.AppendLine();
+            for (int i = 0; i < inventoryItem.itemState.Count; i++)
+            {
+                sb.Append($"{inventoryItem.itemState[i].itemParameter.paramaterName} " + $":{inventoryItem.itemState[i].value} / " + $"{inventoryItem.item.DefaultParameterList[i].value}");
+            }
+            return sb.ToString();
         }
 
         public void Update()

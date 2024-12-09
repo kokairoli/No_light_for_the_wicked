@@ -19,7 +19,20 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = inventoryItem.ItemImage;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = inventoryItem.ItemImage;
+
+        AdjustSpriteRendererSizeToBoxCollider(ref spriteRenderer);
+
+
+    }
+
+    private void AdjustSpriteRendererSizeToBoxCollider(ref SpriteRenderer spriteRenderer)
+    {
+        Vector2 boxColliderSize = GetComponent<BoxCollider2D>().size;
+        Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
+        Vector2 scale = new Vector2(boxColliderSize.x / spriteSize.x, boxColliderSize.y / spriteSize.y);
+        spriteRenderer.transform.localScale = scale;
     }
 
     internal void DestroyItem()
